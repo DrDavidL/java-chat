@@ -1,7 +1,13 @@
 import express from 'express';
-import axios from 'axios';
 import bodyParser from 'body-parser';
 import path from 'path';
+import dotenv from 'dotenv';
+import OpenAI from 'openai';
+import session from 'express-session';
+// Remove this line
+// import './types/express-session'; 
+
+dotenv.config();  // Load environment variables from .env file
 
 const app = express();
 const PORT = 3000;
@@ -11,23 +17,44 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.use(bodyParser.json());
 
+// Initialize session middleware
+app.use(session({
+  secret: 'your_secret_key',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }  // Set to true if using HTTPS
+}));
+
+// Initialize OpenAI client
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY
+});
+
 app.post('/chat', async (req, res) => {
   const { message } = req.body;
 
+  if (!req.session.history) {
+    req.session.history = [
+      { role: "system", content: "You are a helpful assistant." }
+    ];
+  }
+
+  // Add the user's message to the history
+  req.session.history.push({ role: "user", content: message });
+
   try {
-    const response = await axios.post('https://api.openai.com/v1/engines/davinci-codex/completions', {
-      prompt: message,
-      max_tokens: 150,
-      n: 1,
-      stop: null,
-      temperature: 0.7,
-    }, {
-      headers: {
-        'Authorization': `Bearer YOUR_OPENAI_API_KEY`,
-      },
+    const completion = await openai.chat.completions.create({
+      messages: req.session.history as OpenAI.Chat.ChatCompletionMessageParam[], // Type casting
+      model: "gpt-4"
     });
 
-    const botMessage = response.data.choices[0].text.trim();
+    const botMessage = completion.choices && completion.choices[0] && completion.choices[0].message && completion.choices[0].message.content
+      ? completion.choices[0].message.content.trim()
+      : "No response from the assistant.";
+
+    // Add the assistant's response to the history
+    req.session.history.push({ role: "assistant", content: botMessage });
+
     res.json({ message: botMessage });
   } catch (error) {
     res.status(500).json({ error: 'Something went wrong' });

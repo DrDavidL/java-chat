@@ -2,7 +2,13 @@ async function sendMessage() {
     const userInput = document.getElementById('userInput').value;
     const chatbox = document.getElementById('chatbox');
   
-    chatbox.innerHTML += `<p><strong>You:</strong> ${userInput}</p>`;
+    if (userInput.trim() === "") {
+      return;
+    }
+  
+    // Add user's message to the chatbox with emoji
+    chatbox.innerHTML += `<p class="message user">👤 <strong>You:</strong> ${userInput}</p>`;
+    document.getElementById('userInput').value = "";
   
     const response = await fetch('/chat', {
       method: 'POST',
@@ -13,6 +19,10 @@ async function sendMessage() {
     });
   
     const data = await response.json();
-    chatbox.innerHTML += `<p><strong>Bot:</strong> ${data.message}</p>`;
+    // Add bot's message to the chatbox with emoji
+    chatbox.innerHTML += `<p class="message bot">🤖 <strong>Bot:</strong> ${data.message}</p>`;
+  
+    // Scroll to the bottom of the chatbox
+    chatbox.scrollTop = chatbox.scrollHeight;
   }
   
