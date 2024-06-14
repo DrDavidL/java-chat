@@ -1,50 +1,190 @@
+/* Global Styles */
 body {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     height: 100vh;
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f8fc;
   }
   
+  /* App Container */
+  #app-container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  /* Sidebar Styles */
+  #sidebar {
+    width: 300px;
+    min-width: 300px;
+    max-width: 300px;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+  }
+  
+  #sidebar h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  #sidebar h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  #sidebar p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 15px;
+  }
+  
+  #sidebar label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  #sidebar select, #sidebar textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  /* Chat Container Styles */
   #chat-container {
-    text-align: left; /* Left justify the text */
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
   }
   
-  #chatbox {
+  #chat-container h1 {
+    font-size: 24px;
     margin-bottom: 20px;
-    max-height: 300px;
+    color: #333;
+  }
+  
+  .chatbox {
+    flex-grow: 1;
+    margin-bottom: 20px;
+    max-height: 500px;
     overflow-y: auto;
     border: 1px solid #ccc;
     padding: 10px;
-    width: 400px;
+    border-radius: 5px;
+    background-color: #ffffff;
   }
   
-  #userInput {
-    width: 300px;
-    height: 40px;
-    padding: 5px;
+  .input-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
     font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     margin-right: 10px;
   }
   
-  #sendButton {
-    height: 40px;
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
     font-size: 16px;
-    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button i {
+    margin-right: 5px;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
   }
   
   .message {
-    margin: 5px 0;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
   }
   
   .message.user {
+    background-color: #e7f3ff;
+    color: #0056b3;
     text-align: left;
-    color: blue;
   }
   
   .message.bot {
+    background-color: #f1f1f1;
+    color: #333;
     text-align: left;
-    color: green;
+    position: relative;
+  }
+  
+  /* Code Block Styling */
+  pre code {
+    display: block;
+    padding: 1em;
+    background: #282c34; /* Dark background for code blocks */
+    color: #abb2bf; /* Light color for text */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    white-space: pre-wrap; /* Allow code to wrap */
+    overflow-x: auto;
+  }
+  
+  pre {
+    margin: 0;
+    padding: 1em;
+    overflow: auto;
+    background: #282c34; /* Dark background for code blocks */
+    border-radius: 5px;
+    color: #abb2bf; /* Light color for text */
+  }
+  
+  code {
+    background: #f7f7f9;
+    color: #c7254e;
+    padding: 2px 4px;
+    font-size: 90%;
+    border-radius: 4px;
+  }
+  
+  .copy-code, .copy-response {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .copy-code:hover, .copy-response:hover {
+    background: #0056b3;
   }
   
