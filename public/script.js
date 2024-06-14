@@ -72,8 +72,10 @@ async function sendMessage() {
     const decoder = new TextDecoder();
     let botMessage = '';
     const botMessageContainer = document.createElement('div');
+    botMessageContainer.className = 'message bot';
     const botMessageElement = document.createElement('div');
-    botMessageElement.className = 'message bot';
+    botMessageElement.className = 'content';
+    botMessageContainer.innerHTML = '<div class="icon">🤖</div>';
     botMessageContainer.appendChild(botMessageElement);
 
     const copyCodeButton = document.createElement('button');
@@ -102,6 +104,17 @@ async function sendMessage() {
     // Scroll to the bottom of the chatbox
     chatbox.scrollTop = chatbox.scrollHeight;
 }
+
+function formatMessage(message) {
+    // Replace backticks with <pre><code> tags for code blocks
+    let formattedMessage = message.replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>');
+
+    // Handle inline code
+    formattedMessage = formattedMessage.replace(/`(.*?)`/g, '<code>$1</code>');
+
+    return formattedMessage;
+}
+
 
 function checkSubmit(event) {
     if (event.key === 'Enter') {
