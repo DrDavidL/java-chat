@@ -7,20 +7,20 @@ body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f7f8fc;
-  }
-  
-  /* App Container */
-  #app-container {
+}
+
+/* App Container */
+#app-container {
     display: flex;
     width: 100%;
     max-width: 1200px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     overflow: hidden;
-  }
-  
-  /* Sidebar Styles */
-  #sidebar {
+}
+
+/* Sidebar Styles */
+#sidebar {
     width: 300px;
     min-width: 300px;
     max-width: 300px;
@@ -30,33 +30,33 @@ body {
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
-  }
-  
-  #sidebar h1 {
+}
+
+#sidebar h1 {
     font-size: 24px;
     margin-bottom: 10px;
     color: #333;
-  }
-  
-  #sidebar h2 {
+}
+
+#sidebar h2 {
     font-size: 18px;
     margin-bottom: 10px;
     color: #333;
-  }
-  
-  #sidebar p {
+}
+
+#sidebar p {
     font-size: 14px;
     color: #555;
     margin-bottom: 15px;
-  }
-  
-  #sidebar label {
+}
+
+#sidebar label {
     font-size: 14px;
     margin-bottom: 5px;
     color: #555;
-  }
-  
-  #sidebar select, #sidebar textarea {
+}
+
+#sidebar select, #sidebar textarea {
     width: 100%;
     padding: 10px;
     font-size: 14px;
@@ -64,23 +64,23 @@ body {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
-  }
-  
-  /* Chat Container Styles */
-  #chat-container {
+}
+
+/* Chat Container Styles */
+#chat-container {
     flex-grow: 1;
     padding: 20px;
     display: flex;
     flex-direction: column;
-  }
-  
-  #chat-container h1 {
+}
+
+#chat-container h1 {
     font-size: 24px;
     margin-bottom: 20px;
     color: #333;
-  }
-  
-  .chatbox {
+}
+
+.chatbox {
     flex-grow: 1;
     margin-bottom: 20px;
     max-height: 500px;
@@ -89,23 +89,24 @@ body {
     padding: 10px;
     border-radius: 5px;
     background-color: #ffffff;
-  }
-  
-  .input-container {
+}
+
+.input-container {
     display: flex;
     align-items: center;
-  }
-  
-  input[type="text"] {
+}
+
+input[type="text"] {
     flex-grow: 1;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-right: 10px;
-  }
-  
-  button {
+    box-sizing: border-box;
+}
+
+button {
     background-color: #007bff;
     color: white;
     border: none;
@@ -113,37 +114,41 @@ body {
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
-  }
-  
-  button i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+button i {
     margin-right: 5px;
-  }
-  
-  button:hover {
+}
+
+button:hover {
     background-color: #0056b3;
-  }
-  
-  .message {
+}
+
+.message {
     margin: 10px 0;
     padding: 10px;
     border-radius: 5px;
-  }
-  
-  .message.user {
+}
+
+.message.user {
     background-color: #e7f3ff;
     color: #0056b3;
     text-align: left;
-  }
-  
-  .message.bot {
+}
+
+.message.bot {
     background-color: #f1f1f1;
     color: #333;
     text-align: left;
     position: relative;
-  }
-  
-  /* Code Block Styling */
-  pre code {
+}
+
+/* Code Block Styling */
+pre code {
     display: block;
     padding: 1em;
     background: #282c34; /* Dark background for code blocks */
@@ -152,26 +157,26 @@ body {
     border-radius: 5px;
     white-space: pre-wrap; /* Allow code to wrap */
     overflow-x: auto;
-  }
-  
-  pre {
+}
+
+pre {
     margin: 0;
     padding: 1em;
     overflow: auto;
     background: #282c34; /* Dark background for code blocks */
     border-radius: 5px;
     color: #abb2bf; /* Light color for text */
-  }
-  
-  code {
+}
+
+code {
     background: #f7f7f9;
     color: #c7254e;
     padding: 2px 4px;
     font-size: 90%;
     border-radius: 4px;
-  }
-  
-  .copy-code, .copy-response {
+}
+
+.copy-code, .copy-response {
     position: absolute;
     top: 5px;
     right: 5px;
@@ -182,9 +187,8 @@ body {
     font-size: 12px;
     border-radius: 5px;
     cursor: pointer;
-  }
-  
-  .copy-code:hover, .copy-response:hover {
+}
+
+.copy-code:hover, .copy-response:hover {
     background: #0056b3;
-  }
-  
+}
