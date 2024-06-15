@@ -7,6 +7,7 @@ body {
     margin: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f7f8fc;
+    overflow: hidden; /* Prevent scrolling */
 }
 
 /* App Container */
@@ -72,6 +73,8 @@ body {
     padding: 20px;
     display: flex;
     flex-direction: column;
+    height: 100vh; /* Full height */
+    overflow: hidden; /* Prevent scrolling */
 }
 
 #chat-container h1 {
@@ -82,19 +85,19 @@ body {
 
 .chatbox {
     flex-grow: 1;
-    margin-bottom: 20px;
-    max-height: 500px;
     overflow-y: auto;
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
     background-color: #ffffff;
-    word-wrap: break-word; /* Ensure proper word wrapping */
+    margin-bottom: 10px; /* Add margin to keep space for input container */
 }
 
 .input-container {
     display: flex;
     align-items: center;
+    padding: 10px 0;
+    margin-bottom: 20px; /* Add margin to the bottom */
 }
 
 input[type="text"] {
@@ -133,7 +136,6 @@ button:hover {
     margin: 10px 0;
     padding: 10px;
     border-radius: 5px;
-    word-wrap: break-word; /* Ensure proper word wrapping */
 }
 
 .message.user {
@@ -157,8 +159,8 @@ pre code {
     color: #abb2bf; /* Light color for text */
     border: 1px solid #ddd;
     border-radius: 5px;
-    white-space: pre; /* Maintain original whitespace formatting */
-    overflow-x: auto;
+    white-space: pre; /* Preserve whitespace and line breaks */
+    overflow-x: auto; /* Enable horizontal scrolling */
 }
 
 pre {
@@ -176,7 +178,9 @@ code {
     padding: 2px 4px;
     font-size: 90%;
     border-radius: 4px;
+    white-space: pre-wrap; /* Handle long inline code */
 }
+
 
 .copy-code, .copy-response {
     position: absolute;

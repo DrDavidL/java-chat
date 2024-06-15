@@ -105,12 +105,13 @@ async function sendMessage() {
     chatbox.scrollTop = chatbox.scrollHeight;
 }
 
+
 function formatMessage(message) {
     // Replace backticks with <pre><code> tags for code blocks
-    let formattedMessage = message.replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>');
+    let formattedMessage = message.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
 
     // Handle inline code
-    formattedMessage = formattedMessage.replace(/`(.*?)`/g, '<code>$1</code>');
+    formattedMessage = formattedMessage.replace(/`([^`\n]+)`/g, '<code>$1</code>');
 
     // Handle bold text
     formattedMessage = formattedMessage.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
@@ -131,6 +132,11 @@ function formatMessage(message) {
 
     return formattedMessage;
 }
+
+
+
+
+
 
 function checkSubmit(event) {
     if (event.key === 'Enter') {

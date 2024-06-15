@@ -32,25 +32,21 @@ app.post('/chat', async (req, res) => {
   const { message, systemPrompt } = req.body;
 
   if (!req.session.history) {
-    req.session.history = [
-      { role: "system", content: systemPrompt }
-    ];
-  } else if (systemPrompt.startsWith("This system prompt overrides the prior system prompt for messages after this point")) {
-    req.session.history.push({ role: "system", content: systemPrompt });
+    req.session.history = [];
+  }
+
+  // Add system prompt if it's the first message or it's a new system prompt
+  if (req.session.history.length === 0 || (systemPrompt && req.session.history[0].content !== systemPrompt)) {
+    req.session.history.unshift({ role: "system", content: systemPrompt });
   }
 
   // Add the user's message to the history
   req.session.history.push({ role: "user", content: message });
 
-  // Send only the last user message and relevant context to the API
-  const messagesToSend = [
-    ...req.session.history.slice(-2) // Last two messages: latest system prompt (if any) and user message
-  ];
-
   try {
     const stream = await openai.chat.completions.create({
-      messages: messagesToSend as OpenAI.Chat.ChatCompletionMessageParam[], // Type casting
-      model: "gpt-4o",
+      messages: req.session.history as OpenAI.Chat.ChatCompletionMessageParam[], // Type casting
+      model: "gpt-4",
       stream: true
     });
 
@@ -76,10 +72,30 @@ app.post('/chat', async (req, res) => {
 app.post('/verify-password', (req, res) => {
   const { password } = req.body;
   if (password === process.env.PASSWORD_SECRET) {
-    if (req.session) req.session.isAuthenticated = true;
+    req.session.isAuthenticated = true;  // Mark the session as authenticated
     res.json({ success: true });
   } else {
     res.json({ success: false });
+  }
+});
+
+// Middleware to check if the user is authenticated
+function isAuthenticated(req: express.Request, res: express.Response, next: express.NextFunction) {
+  if (req.session.isAuthenticated) {
+    next();
+  } else {
+    res.status(401).send('Unauthorized');
+  }
+}
+
+// Apply the middleware to all routes that need authentication
+app.use('/chat', isAuthenticated);
+app.use('/index.html', isAuthenticated);
+app.use('/', (req, res, next) => {
+  if (req.url === '/password.html' || req.url === '/verify-password') {
+    next();
+  } else {
+    isAuthenticated(req, res, next);
   }
 });
 
