@@ -2,7 +2,8 @@ import session from 'express-session';
 
 declare module 'express-session' {
   interface SessionData {
-    history: { role: string, content: string }[];
+    history?: { role: string; content: string }[];
+    isAuthenticated?: boolean;
   }
 }
 

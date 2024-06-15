@@ -42,9 +42,14 @@ app.post('/chat', async (req, res) => {
   // Add the user's message to the history
   req.session.history.push({ role: "user", content: message });
 
+  // Send only the last user message and relevant context to the API
+  const messagesToSend = [
+    ...req.session.history.slice(-2) // Last two messages: latest system prompt (if any) and user message
+  ];
+
   try {
     const stream = await openai.chat.completions.create({
-      messages: req.session.history as OpenAI.Chat.ChatCompletionMessageParam[], // Type casting
+      messages: messagesToSend as OpenAI.Chat.ChatCompletionMessageParam[], // Type casting
       model: "gpt-4o",
       stream: true
     });
@@ -71,6 +76,7 @@ app.post('/chat', async (req, res) => {
 app.post('/verify-password', (req, res) => {
   const { password } = req.body;
   if (password === process.env.PASSWORD_SECRET) {
+    if (req.session) req.session.isAuthenticated = true;
     res.json({ success: true });
   } else {
     res.json({ success: false });
