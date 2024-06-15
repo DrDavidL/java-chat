@@ -57,7 +57,7 @@ async function sendMessage() {
     }
 
     // Add user's message to the chatbox with emoji
-    chatbox.innerHTML += `<p class="message user">👤 <strong>You:</strong> ${userInput}</p>`;
+    chatbox.innerHTML += `<div class="message user"><div class="icon">👤</div><div class="content"><strong>You:</strong> ${userInput}</div></div>`;
     document.getElementById('userInput').value = "";
 
     const response = await fetch('/chat', {
@@ -112,9 +112,25 @@ function formatMessage(message) {
     // Handle inline code
     formattedMessage = formattedMessage.replace(/`(.*?)`/g, '<code>$1</code>');
 
+    // Handle bold text
+    formattedMessage = formattedMessage.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+    // Handle italic text
+    formattedMessage = formattedMessage.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+    // Handle headers
+    formattedMessage = formattedMessage.replace(/^### (.*?$)/gim, '<h3>$1</h3>');
+    formattedMessage = formattedMessage.replace(/^## (.*?$)/gim, '<h2>$1</h2>');
+    formattedMessage = formattedMessage.replace(/^# (.*?$)/gim, '<h1>$1</h1>');
+
+    // Handle blockquotes
+    formattedMessage = formattedMessage.replace(/^\> (.*?$)/gim, '<blockquote>$1</blockquote>');
+
+    // Handle horizontal rule
+    formattedMessage = formattedMessage.replace(/^\---$/gim, '<hr>');
+
     return formattedMessage;
 }
-
 
 function checkSubmit(event) {
     if (event.key === 'Enter') {
@@ -181,14 +197,4 @@ function getSystemPrompt() {
 \`\`\``;
     }
     return selectedPrompt;
-}
-
-function formatMessage(message) {
-    // Replace backticks with <pre><code> tags for code blocks
-    let formattedMessage = message.replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>');
-
-    // Handle inline code
-    formattedMessage = formattedMessage.replace(/`(.*?)`/g, '<code>$1</code>');
-
-    return formattedMessage;
 }

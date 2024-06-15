@@ -89,6 +89,7 @@ body {
     padding: 10px;
     border-radius: 5px;
     background-color: #ffffff;
+    word-wrap: break-word; /* Ensure proper word wrapping */
 }
 
 .input-container {
@@ -132,6 +133,7 @@ button:hover {
     margin: 10px 0;
     padding: 10px;
     border-radius: 5px;
+    word-wrap: break-word; /* Ensure proper word wrapping */
 }
 
 .message.user {
@@ -155,7 +157,7 @@ pre code {
     color: #abb2bf; /* Light color for text */
     border: 1px solid #ddd;
     border-radius: 5px;
-    white-space: pre-wrap; /* Allow code to wrap */
+    white-space: pre; /* Maintain original whitespace formatting */
     overflow-x: auto;
 }
 
